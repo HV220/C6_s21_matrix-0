@@ -3,7 +3,8 @@
 #include "s21_matrix.h"
 
 START_TEST(s21_create_matrix_test) {
-    // test
+    matrix_t matrix;
+    s21_create_matrix(5,5, &matrix);
 }
 END_TEST
 
