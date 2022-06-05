@@ -1,9 +1,9 @@
 .PHONY: all clean test s21_matrix.a check rebuild open gcov_report
 g = gcc
-flags = -Wall -Werror -Wextra -std=c11
-LINUX = -lsubunit -lrt - lthread -lm
+flags = -Wall -Wextra -Werror -std=c11
+LINUX = -lrt -lpthread -lm -lsubunit
 LIBS = -lcheck
-LFLAGS = -fprofile-arcs -ftest-couverage
+LFLAGS = -fprofile-arcs -ftest-coverage
 OS = $(shell uname -s)
 
 all: clean s21_matrix.a test
@@ -25,19 +25,22 @@ else
 endif
 gcov_files:
 ifeq ($(OS), Darwin)
-		$(g) $(flags) s21_test_matrix.c s21_matrix.c -o test.out $(LIBS)
-		./test.out
+		$(g) $(flags) $(LFLAGS) s21_test_matrix.c s21_matrix.c -o test.out $(LIBS)
 else
-		$(g) $(flags) s21_test_matrix.c s21_matrix.c -o test.out $(LIBS) $(LINUX)
-		./test.out
+		$(g) $(flags) $(LFLAGS) s21_test_matrix.c s21_matrix.c -o test.out $(LIBS) $(LINUX)
 endif
 
 gcov_report: gcov_files
+	./test.out
 	lcov -t "test" -o test.info -c -d .
 	genhtml -o report test.info
 
 open: 
-	open report/index.html
+ifeq ($(OS), Darwin)
+		open report/index.html
+else
+		xdg-open report/index.html
+endif
 	
 check:
 	cppcheck --enable=all --suppress=missingIncludeSystem *.c *.h
