@@ -8,6 +8,7 @@ void print_matrix(matrix_t *matrix) {
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 void create_compare_matrix(int rows, int columns, double **matrix) {
@@ -26,8 +27,28 @@ void create_compare_matrix(int rows, int columns, double **matrix) {
 
 START_TEST(s21_create_matrix_test) {
     matrix_t matrix;
-    s21_create_matrix(5, 5, &matrix);
-    s21_remove_matrix(&matrix);
+    matrix_t matrix2;
+    matrix_t res;
+    s21_create_matrix(2, 3, &matrix);
+    s21_create_matrix(3, 2, &matrix2);
+    matrix.matrix[0][0] = 1;
+    matrix.matrix[0][1] = 4;
+    matrix.matrix[1][0] = 2;
+    matrix.matrix[1][1] = 5;
+    matrix.matrix[2][0] = 3;
+    matrix.matrix[2][1] = 6;
+
+    matrix2.matrix[0][0] = 1;
+    matrix2.matrix[0][1] = -1;
+    matrix2.matrix[0][2] = 1;
+    matrix2.matrix[1][0] = 2;
+    matrix2.matrix[1][1] = 3;
+    matrix2.matrix[1][2] = 4;
+    s21_mult_matrix(&matrix,&matrix2, &res);
+    print_matrix(&matrix);
+    print_matrix(&matrix2);
+    print_matrix(&res);
+    //s21_remove_matrix(&matrix);
 }
 END_TEST
 

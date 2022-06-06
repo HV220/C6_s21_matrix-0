@@ -30,5 +30,6 @@ int s21_inverse_matrix(matrix_t *A, matrix_t *result);
 
 // add functions
 int compare_matrix(matrix_t *A, matrix_t *B);
-int empty_matrix(matrix_t *A, matrix_t *B);
+int empty_two_matrix(matrix_t *A, matrix_t *B);
+int empty_one_matrix(matrix_t *A);
 #endif  //  SRC_S21_MATRIX_H_
