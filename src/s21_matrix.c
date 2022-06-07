@@ -33,16 +33,20 @@ void s21_remove_matrix(matrix_t *A) {
 }
 
 int s21_eq_matrix(matrix_t *A, matrix_t *B) {
+    int  error = 1;
     if (compare_matrix(A, B) && empty_two_matrix(A, B)) {
+       
         for (int i = 0; i < A->rows; i++) {
             for (int j = 0; j < A->columns; j++) {
-                if (A->matrix[i][j] - B->matrix[i][j] > EPS) {
-                    return 0;
+                if (fabs(A->matrix[i][j] - B->matrix[i][j]) > EPS) {
+                    error = 0;
                 }
             }
         }
+    } else {
+        error = 0;
     }
-    return 1;
+    return error;
 }
 
 int s21_sum_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
@@ -233,8 +237,8 @@ int compare_matrix(matrix_t *A, matrix_t *B) {
 
 int empty_two_matrix(matrix_t *A, matrix_t *B) {
     int error = 0;
-    if ((A->columns > 0) && (B->columns > 0) && (A != NULL) && (B != NULL) &&
-        (A->matrix != NULL) && (B->matrix != NULL)) {
+    if ((A->columns > 0) && (B->columns > 0) && A && B &&
+        (A->matrix) && (B->matrix)) {
         error = 1;
     }
     return error;

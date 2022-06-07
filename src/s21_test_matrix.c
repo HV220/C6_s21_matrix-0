@@ -1,24 +1,30 @@
 #include <check.h>
-
 #include "s21_matrix.h"
 
 START_TEST(s21_create_matrix_test) {
-
+matrix_t matrix;
+ck_assert_int_eq(s21_create_matrix(0, 0, &matrix), 1);
+ck_assert_int_eq(s21_create_matrix(2, 2, &matrix), 0);
+ck_assert_int_eq(s21_create_matrix(2, -2, &matrix), 1);
+ck_assert_int_eq(s21_create_matrix(-2, 2, &matrix), 1);
+s21_remove_matrix(&matrix);
 }
 END_TEST
 
 START_TEST(s21_remove_matrix_test) {
-
+matrix_t matrix;
+s21_create_matrix(2, 2, &matrix);
+s21_remove_matrix(&matrix);
+ck_assert_int_eq(empty_one_matrix(&matrix), 0);
 }
 END_TEST
 
 START_TEST(s21_eq_matrix_test) {
     matrix_t matrix;
     matrix_t matrix_test;
-    printf("\n21_calc_complements_test\n");
     s21_create_matrix(2, 2, &matrix);
     s21_create_matrix(2, 2, &matrix_test);
-    matrix.matrix[0][0] = 1.4567891;
+    matrix.matrix[0][0] = 1.4567890;
     matrix.matrix[0][1] = 1.4567890;
     matrix.matrix[1][0] = 1.4567890;
     matrix.matrix[1][1] = 1.4567890;
@@ -26,7 +32,15 @@ START_TEST(s21_eq_matrix_test) {
     matrix_test.matrix[0][1] = 1.4567890;
     matrix_test.matrix[1][0] = 1.4567890;
     matrix_test.matrix[1][1] = 1.4567890;
-    printf("\n%d\n", s21_eq_matrix(&matrix, &matrix_test));
+    ck_assert_int_eq(s21_eq_matrix(&matrix, &matrix_test), 1);
+    matrix.matrix[0][0] = 1.4567840;
+    ck_assert_int_eq(s21_eq_matrix(&matrix, &matrix_test), 0);
+    matrix.matrix[0][0] = -1.4567890;
+    matrix_test.matrix[0][0] = -1.4567890;
+    ck_assert_int_eq(s21_eq_matrix(&matrix, &matrix_test), 1);
+    s21_remove_matrix(&matrix);
+    ck_assert_int_eq(s21_eq_matrix(&matrix, &matrix_test), 0);
+    s21_remove_matrix(&matrix_test);
 }
 END_TEST
 
