@@ -45,6 +45,7 @@ END_TEST
 START_TEST(s21_calc_complements_test) {
     matrix_t check;
     matrix_t result;
+    printf("\n21_calc_complements_test\n");
     s21_create_matrix(3, 3, &check);
     check.matrix[0][0] = 1;
     check.matrix[0][1] = 2;

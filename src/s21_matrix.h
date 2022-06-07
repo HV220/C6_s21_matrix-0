@@ -37,5 +37,4 @@ int compare_square_matrix(matrix_t *A);
 void print_matrix(matrix_t *matrix);
 int equalise_matrix(matrix_t *A, int i, int j, matrix_t *matrix);
 void add_numbers_matrix(matrix_t *matrix);
-int minor_complements(matrix_t *A, matrix_t *result);
 #endif  //  SRC_S21_MATRIX_H_

@@ -154,7 +154,7 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
                 for (int j = 0; j < result->columns; j++) {
                     if(equalise_matrix(A, j, i, &tmp)) {error = FAILURE; break;}
                     s21_determinant(&tmp,&d_tmp);
-                    result->matrix[i][j] = pow(-1, i + j) * d_tmp;
+                    result->matrix[i][j] = pow(-1, j + i) * d_tmp;
                 }
             }
         }
@@ -210,15 +210,8 @@ int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
             if (fabs(deter) > EPS)
             {
                 matrix_t tmp;
-                minor_complements(A, result);
-                s21_transpose(result, &tmp);
-                for (int i = 0; i < result->rows; i++)
-                {
-                    for (int j = 0; j < result->columns; j++)
-                    {
-                        result->matrix[i][j] = tmp.matrix[i][j];
-                    }
-                }
+                s21_calc_complements(A, &tmp);
+                s21_transpose(&tmp, result);
                 s21_remove_matrix(&tmp);
             } else {
                 error = INCORRECT;
@@ -305,24 +298,4 @@ void add_numbers_matrix(matrix_t *matrix) {
            matrix->matrix[i][j] = (rand() % (40-10+1)+5);
         }
     }
-}
-
-int minor_complements(matrix_t *A, matrix_t *result) {
-    int error = SUCCESS;
-    if (!empty_one_matrix(A) && compare_square_matrix(A)) {
-        error = FAILURE;
-    } else {
-        if (s21_create_matrix(A->columns, A->rows, result)) {error = FAILURE;} else {
-            matrix_t tmp;
-            double d_tmp;
-            for (int i = 0; i < result->rows; i++) {
-                for (int j = 0; j < result->columns; j++) {
-                    if(equalise_matrix(A, j, i, &tmp)) {error = FAILURE; break;}
-                    s21_determinant(&tmp,&d_tmp);
-                    result->matrix[i][j] = d_tmp;
-                }
-            }
-        }
-    }
-    return error;
 }
