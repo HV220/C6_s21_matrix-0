@@ -2,65 +2,14 @@
 
 #include "s21_matrix.h"
 
-void print_matrix(matrix_t *matrix) {
-    for (int i = 0; i < matrix->rows; i++) {
-        for (int j = 0; j < matrix->columns; j++) {
-            printf("%f ", matrix->matrix[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
-
-void create_compare_matrix(int rows, int columns, double **matrix) {
-    int error = 0;
-    if ((matrix = (double **)malloc(columns * sizeof(double *))) == NULL) {
-        error = 1;
-    }
-    if (!error) {
-        for (int i = 0; i < columns; i++) {
-            if (((matrix[i] = (double *)malloc(rows * sizeof(double))) ==
-                 NULL)) {
-                for (int j = 0; j < i; j++) {
-                    free(matrix[j]);
-                }
-                free(matrix);
-            }
-        }
-    }
-}
-
 START_TEST(s21_create_matrix_test) {
-    matrix_t matrix;
-    //matrix_t matrix2;
-    matrix_t res;
-    s21_create_matrix(2, 4, &matrix);
-    //s21_create_matrix(2, 3, &matrix2);
-    matrix.matrix[0][0] = 1;
-    matrix.matrix[0][1] = 2;
-    matrix.matrix[0][2] = 3;
-    matrix.matrix[0][3] = 4;
-    matrix.matrix[1][0] = 5;
-    matrix.matrix[1][1] = 6;
-    matrix.matrix[1][2] = 7;
-    matrix.matrix[1][3] = 8;
 
-    // matrix2.matrix[0][0] = 1;
-    // matrix2.matrix[0][1] = -1;
-    // matrix2.matrix[0][2] = 1;
-    // matrix2.matrix[1][0] = 2;
-    // matrix2.matrix[1][1] = 3;
-    // matrix2.matrix[1][2] = 4;
-    s21_transpose(&matrix, &res);
-    print_matrix(&matrix);
-    //print_matrix(&matrix2);
-    print_matrix(&res);
-    //printf("res%d\n", r);
-    // s21_remove_matrix(&matrix);
 }
 END_TEST
 
-START_TEST(s21_remove_matrix_test) {}
+START_TEST(s21_remove_matrix_test) {
+
+}
 END_TEST
 
 START_TEST(s21_eq_matrix_test) {
@@ -94,17 +43,50 @@ START_TEST(s21_transpose_test) {
 END_TEST
 
 START_TEST(s21_calc_complements_test) {
-    // test
+    matrix_t check;
+    matrix_t result;
+    s21_create_matrix(3, 3, &check);
+    check.matrix[0][0] = 1;
+    check.matrix[0][1] = 2;
+    check.matrix[0][2] = 3;
+    check.matrix[1][0] = 0;
+    check.matrix[1][1] = 4;
+    check.matrix[1][2] = 2;
+    check.matrix[2][0] = 5;
+    check.matrix[2][1] = 2;
+    check.matrix[2][2] = 1;
+    s21_calc_complements(&check, &result);
+    print_matrix(&check);
+    print_matrix(&result);
 }
 END_TEST
 
 START_TEST(s21_determinant_test) {
-    // test
+    matrix_t check;
+    double res;
+    s21_create_matrix(4, 4, &check);
+    add_numbers_matrix(&check);
+    s21_determinant(&check, &res);
 }
 END_TEST
 
 START_TEST(s21_inverse_matrix_test) {
-    // test
+    matrix_t A;
+    matrix_t result;
+    printf("\ns21_inverse\n");
+    s21_create_matrix(3, 3, &A);
+    A.matrix[0][0] = 2;
+    A.matrix[0][1] = 5;
+    A.matrix[0][2] = 7;
+    A.matrix[1][0] = 6;
+    A.matrix[1][1] = 3;
+    A.matrix[1][2] = 4;
+    A.matrix[2][0] = 5;
+    A.matrix[2][1] = -2;
+    A.matrix[2][2] = -3;
+    s21_inverse_matrix(&A, &result);
+    print_matrix(&A);
+    print_matrix(&result);
 }
 END_TEST
 

@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <math.h> 
 #include <limits.h>
-#define SUCCESS 1
-#define FAILURE 0
+#define SUCCESS 0
+#define FAILURE 1
 #define INCORRECT 2
 
 #define EPS 0.0000001
@@ -29,7 +29,13 @@ int s21_determinant(matrix_t *A, double *result);
 int s21_inverse_matrix(matrix_t *A, matrix_t *result);
 
 // add functions
+
 int compare_matrix(matrix_t *A, matrix_t *B);
 int empty_two_matrix(matrix_t *A, matrix_t *B);
 int empty_one_matrix(matrix_t *A);
+int compare_square_matrix(matrix_t *A);
+void print_matrix(matrix_t *matrix);
+int equalise_matrix(matrix_t *A, int i, int j, matrix_t *matrix);
+void add_numbers_matrix(matrix_t *matrix);
+int minor_complements(matrix_t *A, matrix_t *result);
 #endif  //  SRC_S21_MATRIX_H_
