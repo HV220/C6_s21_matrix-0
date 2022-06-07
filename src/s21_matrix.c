@@ -36,7 +36,7 @@ int s21_eq_matrix(matrix_t *A, matrix_t *B) {
     if (compare_matrix(A, B) && empty_two_matrix(A, B)) {
         for (int i = 0; i < A->rows; i++) {
             for (int j = 0; j < A->columns; j++) {
-                if ((fabs(A->matrix[i][j] - B->matrix[i][j])) < EPS) {
+                if (A->matrix[i][j] - B->matrix[i][j] > EPS) {
                     return 0;
                 }
             }

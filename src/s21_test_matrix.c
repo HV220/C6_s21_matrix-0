@@ -13,7 +13,20 @@ START_TEST(s21_remove_matrix_test) {
 END_TEST
 
 START_TEST(s21_eq_matrix_test) {
-    // test
+    matrix_t matrix;
+    matrix_t matrix_test;
+    printf("\n21_calc_complements_test\n");
+    s21_create_matrix(2, 2, &matrix);
+    s21_create_matrix(2, 2, &matrix_test);
+    matrix.matrix[0][0] = 1.4567891;
+    matrix.matrix[0][1] = 1.4567890;
+    matrix.matrix[1][0] = 1.4567890;
+    matrix.matrix[1][1] = 1.4567890;
+    matrix_test.matrix[0][0] = 1.4567890;
+    matrix_test.matrix[0][1] = 1.4567890;
+    matrix_test.matrix[1][0] = 1.4567890;
+    matrix_test.matrix[1][1] = 1.4567890;
+    printf("\n%d\n", s21_eq_matrix(&matrix, &matrix_test));
 }
 END_TEST
 
