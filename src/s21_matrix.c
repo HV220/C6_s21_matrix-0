@@ -1,11 +1,11 @@
 // Copyright 2022 <Zaharov Andru>
-#include "src/s21_matrix.h"
+#include "s21_matrix.h"
 
 int s21_create_matrix(int rows, int columns, matrix_t *result) {
     result->columns = columns;
     result->rows = rows;
     int error = SUCCESS;
-    
+
     if (rows > 0 && columns > 0) {
         if ((result->matrix = (double **)calloc(rows, sizeof(double *))) ==
             NULL) {
@@ -290,7 +290,7 @@ int equalise_matrix(matrix_t *A, int row, int column, matrix_t *matrix) {
 void add_numbers_matrix(matrix_t *matrix) {
     for (int i = 0; i < matrix->rows; i++) {
         for (int j = 0; j < matrix->columns; j++) {
-            matrix->matrix[i][j] = (rand_r(100) % (40 - 10 + 1) + 5);
+            matrix->matrix[i][j] = 43;
         }
     }
 }

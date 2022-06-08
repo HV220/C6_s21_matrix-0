@@ -1,6 +1,7 @@
 // Copyright 2022 <Zaharov Andru>
-#include "src/s21_matrix.h"
 #include <check.h>
+
+#include "s21_matrix.h"
 
 START_TEST(s21_create_matrix_test) {
     matrix_t matrix;
@@ -91,7 +92,7 @@ START_TEST(s21_mult_number_test) {
     ck_assert_int_eq(s21_mult_number(&matrix, 2, &result), 0);
     s21_remove_matrix(&matrix);
     ck_assert_int_eq(s21_mult_number(&matrix, 2, &result), 1);
-    print_matrix(&result);
+    s21_remove_matrix(&result);
 }
 END_TEST
 
