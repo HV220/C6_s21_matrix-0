@@ -29,11 +29,11 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
 }
 
 void s21_remove_matrix(matrix_t *A) {
-    for (int i = 0; i < A->rows; i++)
+    for (int i = 0; i < A->rows; i++) {
         if (A->matrix)
-            free(A->matrix[i]);
+            {free(A->matrix[i]);}}
     if (A->matrix)
-        free(A->matrix);
+        {free(A->matrix);}
     A->columns = 0;
     A->rows = 0;
 }
@@ -173,6 +173,7 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
                     }
                     s21_determinant(&tmp, &d_tmp);
                     result->matrix[i][j] = pow(-1, j + i) * d_tmp;
+                    s21_remove_matrix(&tmp);
                 }
             }
         }

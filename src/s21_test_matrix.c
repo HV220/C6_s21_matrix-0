@@ -7,9 +7,9 @@ START_TEST(s21_create_matrix_test) {
     matrix_t matrix;
     ck_assert_int_eq(s21_create_matrix(0, 0, &matrix), 1);
     ck_assert_int_eq(s21_create_matrix(2, 2, &matrix), 0);
+    s21_remove_matrix(&matrix);
     ck_assert_int_eq(s21_create_matrix(2, -2, &matrix), 1);
     ck_assert_int_eq(s21_create_matrix(-2, 2, &matrix), 1);
-    s21_remove_matrix(&matrix);
 }
 END_TEST
 
@@ -56,7 +56,6 @@ START_TEST(s21_sum_matrix_test) {
     ck_assert_int_eq(s21_sum_matrix(&matrix, &matrix_test, &result), 0);
     s21_remove_matrix(&matrix);
     ck_assert_int_eq(s21_sum_matrix(&matrix, &matrix_test, &result), 1);
-    // s21_remove_matrix(&matrix);
     s21_remove_matrix(&matrix_test);
     s21_remove_matrix(&result);
 }
@@ -109,7 +108,6 @@ START_TEST(s21_mult_matrix_test) {
     ck_assert_int_eq(s21_mult_matrix(&matrix, &matrix_test, &result), 0);
     s21_remove_matrix(&matrix);
     ck_assert_int_eq(s21_mult_matrix(&matrix, &matrix_test, &result), 1);
-    s21_create_matrix(2, 2, &matrix);
     s21_create_matrix(3, 3, &matrix);
     ck_assert_int_eq(s21_mult_matrix(&matrix, &matrix_test, &result), 1);
     s21_remove_matrix(&matrix);
@@ -128,6 +126,7 @@ START_TEST(s21_transpose_test) {
     matrix.matrix[1][1] = 3;
     ck_assert_int_eq(s21_transpose(&matrix, &result), 0);
     s21_remove_matrix(&matrix);
+    s21_remove_matrix(&result);
     ck_assert_int_eq(s21_transpose(&matrix, &result), 1);
     s21_create_matrix(4, 2, &matrix);
     ck_assert_int_eq(s21_transpose(&matrix, &result), 0);
@@ -151,10 +150,13 @@ START_TEST(s21_calc_complements_test) {
     check.matrix[2][2] = 1;
     ck_assert_int_eq(s21_calc_complements(&check, &result), 0);
     s21_remove_matrix(&check);
+    s21_remove_matrix(&result);
     ck_assert_int_eq(s21_calc_complements(&check, &result), 1);
+    s21_create_matrix(5, 3, &result);
     s21_create_matrix(5, 3, &check);
     ck_assert_int_eq(s21_calc_complements(&check, &result), 1);
     s21_remove_matrix(&check);
+    s21_remove_matrix(&result);
 }
 END_TEST
 
@@ -164,6 +166,7 @@ START_TEST(s21_determinant_test) {
     s21_create_matrix(4, 4, &check);
     add_numbers_matrix(&check);
     ck_assert_int_eq(s21_determinant(&check, &res), 0);
+    s21_remove_matrix(&check);
     s21_create_matrix(5, 4, &check);
     ck_assert_int_eq(s21_determinant(&check, &res), 1);
     s21_remove_matrix(&check);
@@ -186,6 +189,7 @@ START_TEST(s21_inverse_matrix_test) {
     ck_assert_int_eq(s21_inverse_matrix(&A, &result), 0);
     s21_remove_matrix(&A);
     ck_assert_int_eq(s21_inverse_matrix(&A, &result), 1);
+    s21_remove_matrix(&result);
 }
 END_TEST
 

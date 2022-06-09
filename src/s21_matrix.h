@@ -38,4 +38,4 @@ int equalise_matrix(matrix_t *A, int i, int j, matrix_t *matrix);
 void add_numbers_matrix(matrix_t *matrix);
 int matrix_copy(matrix_t *A, matrix_t *B);
 
-#endif //  SRC_S21_MATRIX_H_
+#endif  //  SRC_S21_MATRIX_H_
